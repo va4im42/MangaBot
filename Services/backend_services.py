@@ -1,29 +1,26 @@
 import requests
 from Class import Manga
 
-url = "https://2.readmanga.ru"
+url = "https://localhost:7034"
 
 headers = {
-    'User-Agent': 'Mozilla/5.0',  # Возможно, сервер требует идентификацию клиента
-    # Если требуется авторизация, можно добавить ее здесь
-    # 'Authorization': 'Bearer your_token_here'
+    'User-Agent': 'Mozilla/5.0',
+    'Host': 'https://localhost:7034'
 }
 
 def mangalist(MangaName):
 
     params = {
-        'query': MangaName,
-        'types': 'CREATION',
-        'types': 'FEDERATION_MANGA_SUBJECT'
+        'name': MangaName  
     }
 
-    response = requests.get(url+"/search/suggestion", params=params, headers=headers)
+    response = requests.get(url+"/api/Manga/Search", params=params, headers=headers, verify=False)
 
     if response.status_code == 200:
         # Вывод данных ответа в формате JSON
         data = response.json()
 
-        mangas = data.get('suggestions', [])
+        mangas = data.get([])
         manga_list =[]
 
         for i in mangas:

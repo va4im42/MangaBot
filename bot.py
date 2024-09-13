@@ -15,7 +15,9 @@ def search(message):
     @bot.message_handler(func=lambda message: True)
     def mangalist(message):
         answers = backend_services.mangalist(message.text)
+        print(answers)
         for answer in answers:
-            bot.reply_to(message,f"Name: {answer.name}, Сылка: {answer.link}, Pic: {answer.img}")
+            bot.send_photo(message.chat.id, photo=answer.img, caption=f"{answer.name} \nСылка: {answer.link}", disable_notification=True)
+            # bot.reply_to(message,f"Name: {answer.name}, Сылка: {answer.link}, Pic: {answer.img}")
 
 bot.infinity_polling()
